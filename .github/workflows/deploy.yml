@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
       - run: npm ci
       - run: npm test
 
@@ -65,5 +65,7 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: |
-          npx wrangler@4 pages project create dvops-docs --production-branch=main 2>/dev/null || true
+          # Create the project on first run; tolerate only the already-exists case.
+          npx wrangler@4 pages project create dvops-docs --production-branch=main \
+            || echo "::warning::pages project create failed - continuing (project may already exist)"
           npx wrangler@4 pages deploy dist --project-name=dvops-docs
