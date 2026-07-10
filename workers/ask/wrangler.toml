@@ -17,4 +17,4 @@ binding = "AI"
 binding = "DB"
 database_name = "dvops-ask"
 # Owner: replace with the id printed by `npx wrangler d1 create dvops-ask`.
-database_id = "REPLACE_ME"
+database_id = "44aadff9-1edc-456c-9d79-0309391ea582"
