@@ -1,0 +1,24 @@
+/* Starlight theme tweaks: IBM Plex + a single deep-teal accent. */
+
+:root {
+  --sl-font: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+  --sl-font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', monospace;
+}
+
+/* Dark mode (Starlight default theme) */
+:root {
+  --sl-color-accent-low: #06342f;
+  --sl-color-accent: #0d7d72;
+  --sl-color-accent-high: #93d4cb;
+}
+
+/* Light mode */
+:root[data-theme='light'] {
+  --sl-color-accent-low: #cdeae5;
+  --sl-color-accent: #0b6a61;
+  --sl-color-accent-high: #093f3a;
+}
+
+.site-title {
+  font-weight: 600;
+}

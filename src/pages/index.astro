@@ -1,0 +1,325 @@
+---
+// Landing page — custom page, intentionally not the Starlight docs layout.
+import '@fontsource/ibm-plex-sans/400.css';
+import '@fontsource/ibm-plex-sans/600.css';
+import '@fontsource/ibm-plex-sans/700.css';
+import '@fontsource/ibm-plex-mono/400.css';
+import '@fontsource/ibm-plex-mono/600.css';
+
+const quickstart = `{
+  "mcpServers": {
+    "dataverse-ops": {
+      "command": "npx",
+      "args": ["-y", "@simplesmoothsafe/dataverse-ops-mcp"],
+      "env": {
+        "DATAVERSE_URL": "https://yourorg.crm.dynamics.com",
+        "CLIENT_ID": "<app-registration-client-id>",
+        "CLIENT_SECRET": "<client-secret>",
+        "TENANT_ID": "<entra-tenant-id>"
+      }
+    }
+  }
+}`;
+
+const freeTools = [
+  ['ping', 'Health check for the server connection — returns { ok: true } without touching Dataverse.', null],
+  ['get_plugin_traces', 'Recent plug-in trace logs, defaulting to executions that threw exceptions.', '/tools/get_plugin_traces/'],
+  ['get_failed_async_jobs', 'Failed and canceled async jobs over a time window, grouped by name and error code.', '/tools/get_failed_async_jobs/'],
+];
+const proTools = [
+  ['check_step_config', 'Lints plug-in step registrations: missing filtering attributes, risky sync steps, rank collisions.', '/tools/check_step_config/'],
+  ['explain_trace', 'Root-cause analysis of a single failing plug-in execution, with correlated sibling traces.', '/tools/explain_trace/'],
+  ['explain_import_failure', 'Explains a failed solution import with per-component causes and missing dependencies.', '/tools/explain_import_failure/'],
+  ['analyze_plugin_performance', 'Per-plugin/message performance table (p50/p95, sync vs async, depth) with anti-pattern flags.', '/tools/analyze_plugin_performance/'],
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dataverse Ops MCP — Dataverse diagnostics inside your AI assistant</title>
+    <meta
+      name="description"
+      content="Plug-in trace analysis, failed job triage, import failure explanations and performance flags for Microsoft Dataverse — over MCP/stdio. Data never leaves your tenant."
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <!-- Cloudflare Web Analytics (privacy-friendly, no cookies).
+         Owner: replace REPLACE_WITH_CF_ANALYTICS_TOKEN with your real token. -->
+    <script
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token": "REPLACE_WITH_CF_ANALYTICS_TOKEN"}'
+      is:inline></script>
+  </head>
+  <body>
+    <header class="nav">
+      <div class="wrap nav-inner">
+        <a class="brand" href="/">Dataverse&nbsp;Ops&nbsp;MCP</a>
+        <nav>
+          <a href="#tools">Tools</a>
+          <a href="#pricing">Pricing</a>
+          <a href="/getting-started/claude-desktop/">Docs</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero wrap">
+        <h1>Dataverse diagnostics inside your AI assistant</h1>
+        <p class="lede">
+          Plug-in trace analysis, failed async job triage, solution import failure
+          explanations and performance flags for Microsoft Dataverse — exposed as
+          MCP tools your assistant can call directly. Runs locally over
+          <strong>MCP/stdio</strong>: no hosted service, no open ports, and your
+          Dataverse data <strong>never leaves your tenant</strong>.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="/getting-started/claude-desktop/">Get started</a>
+          <a class="btn btn-ghost" href="#pricing">Pricing</a>
+        </div>
+
+        <div class="quickstart">
+          <p class="quickstart-label">
+            Add to Claude Desktop (<code>claude_desktop_config.json</code>):
+          </p>
+          <pre><code>{quickstart}</code></pre>
+        </div>
+      </section>
+
+      <section id="tools" class="wrap">
+        <h2>Tools</h2>
+        <p>Free tools work without a license key. Pro tools unlock with a <a href="#pricing">Pro or Enterprise license</a>.</p>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr><th>Tool</th><th>Tier</th><th>What it does</th></tr>
+            </thead>
+            <tbody>
+              {freeTools.map(([name, desc, href]) => (
+                <tr>
+                  <td><code>{href ? <a href={href}>{name}</a> : name}</code></td>
+                  <td><span class="tier tier-free">Free</span></td>
+                  <td>{desc}</td>
+                </tr>
+              ))}
+              {proTools.map(([name, desc, href]) => (
+                <tr>
+                  <td><code><a href={href}>{name}</a></code></td>
+                  <td><span class="tier tier-pro">Pro</span></td>
+                  <td>{desc}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="pricing" class="wrap">
+        <div class="pricing-head">
+          <h2>Pricing</h2>
+          <div class="currency-toggle" role="group" aria-label="Currency">
+            <button type="button" data-currency="eur" class="active" aria-pressed="true">EUR</button>
+            <button type="button" data-currency="usd" aria-pressed="false">USD</button>
+          </div>
+        </div>
+        <p class="fx-note" hidden>USD prices are approximate, converted at a static reference rate. Checkout is billed in EUR.</p>
+        <div class="plans">
+          <div class="plan">
+            <h3>Free</h3>
+            <p class="price"><span class="amount" data-eur="€0" data-usd="$0">€0</span></p>
+            <ul>
+              <li>All free tools (<code>ping</code>, traces, failed jobs)</li>
+              <li>Runs entirely on your machine</li>
+              <li>Community support</li>
+            </ul>
+            <a class="btn btn-ghost" href="/getting-started/claude-desktop/">Install free</a>
+          </div>
+          <div class="plan plan-featured">
+            <h3>Pro</h3>
+            <p class="price">
+              <span class="amount" data-eur="€99" data-usd="$109">€99</span>
+              <span class="per">/ org / month</span>
+            </p>
+            <ul>
+              <li>Everything in Free</li>
+              <li>All pro diagnostic tools</li>
+              <li>Email support</li>
+            </ul>
+            <!-- Owner: replace with the real Paddle checkout link for the Pro plan. -->
+            <a class="btn btn-primary" href="https://buy.paddle.com/PLACEHOLDER_PRO">Buy Pro</a>
+          </div>
+          <div class="plan">
+            <h3>Enterprise</h3>
+            <p class="price">
+              <span class="amount" data-eur="€249" data-usd="$269">€249</span>
+              <span class="per">/ org / month</span>
+            </p>
+            <ul>
+              <li>Everything in Pro</li>
+              <li>Priority support</li>
+              <li>Invoicing &amp; procurement-friendly billing</li>
+            </ul>
+            <!-- Owner: replace with the real Paddle checkout link for the Enterprise plan. -->
+            <a class="btn btn-ghost" href="https://buy.paddle.com/PLACEHOLDER_ENTERPRISE">Buy Enterprise</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap footer-inner">
+        <span>© 2026 simplesmoothsafe</span>
+        <nav>
+          <a href="/getting-started/claude-desktop/">Docs</a>
+          <a href="/changelog/">Changelog</a>
+          <a href="/security/">Security</a>
+          <a href="https://status.simplesmoothsafe.com">Status</a>
+          <a href="mailto:support@simplesmoothsafe.com">Support</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script>
+      const buttons = document.querySelectorAll<HTMLButtonElement>('.currency-toggle button');
+      const note = document.querySelector<HTMLElement>('.fx-note');
+      buttons.forEach((btn) =>
+        btn.addEventListener('click', () => {
+          const currency = btn.dataset.currency === 'usd' ? 'usd' : 'eur';
+          buttons.forEach((b) => {
+            const active = b === btn;
+            b.classList.toggle('active', active);
+            b.setAttribute('aria-pressed', String(active));
+          });
+          document.querySelectorAll<HTMLElement>('.amount').forEach((el) => {
+            el.textContent = currency === 'usd' ? (el.dataset.usd ?? '') : (el.dataset.eur ?? '');
+          });
+          if (note) note.hidden = currency !== 'usd';
+        }),
+      );
+    </script>
+
+    <style>
+      :root {
+        --bg: #ffffff;
+        --bg-soft: #f4f7f6;
+        --fg: #16211f;
+        --fg-muted: #4c5a57;
+        --border: #d8e0de;
+        --accent: #0b6a61;
+        --accent-contrast: #ffffff;
+        --code-bg: #0f1c1a;
+        --code-fg: #d5e6e3;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #101716;
+          --bg-soft: #17211f;
+          --fg: #e4ecea;
+          --fg-muted: #9fb0ac;
+          --border: #2a3835;
+          --accent: #35a89b;
+          --accent-contrast: #06211e;
+          --code-bg: #0b1211;
+          --code-fg: #cfe0dd;
+        }
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: 'IBM Plex Sans', ui-sans-serif, system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--fg);
+        line-height: 1.6;
+      }
+      code, pre { font-family: 'IBM Plex Mono', ui-monospace, monospace; }
+      a { color: var(--accent); }
+      .wrap { max-width: 62rem; margin: 0 auto; padding: 0 1.25rem; }
+
+      .nav { border-bottom: 1px solid var(--border); }
+      .nav-inner {
+        display: flex; align-items: center; justify-content: space-between;
+        padding-top: 0.9rem; padding-bottom: 0.9rem;
+      }
+      .brand { font-weight: 700; color: var(--fg); text-decoration: none; }
+      .nav nav a, footer nav a {
+        color: var(--fg-muted); text-decoration: none; margin-left: 1.1rem;
+      }
+      .nav nav a:hover, footer nav a:hover { color: var(--accent); }
+
+      .hero { padding-top: 4rem; padding-bottom: 2rem; }
+      .hero h1 {
+        font-size: clamp(1.9rem, 4.5vw, 3rem);
+        line-height: 1.15; font-weight: 700; margin: 0 0 1rem;
+        max-width: 40ch;
+      }
+      .lede { font-size: 1.1rem; color: var(--fg-muted); max-width: 62ch; margin: 0 0 1.5rem; }
+      .lede strong { color: var(--fg); }
+
+      .cta-row { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+      .btn {
+        display: inline-block; padding: 0.55rem 1.2rem; border-radius: 6px;
+        text-decoration: none; font-weight: 600; border: 1px solid var(--accent);
+      }
+      .btn-primary { background: var(--accent); color: var(--accent-contrast); }
+      .btn-ghost { color: var(--accent); background: transparent; }
+      .btn:hover { filter: brightness(1.1); }
+
+      .quickstart-label { color: var(--fg-muted); margin-bottom: 0.4rem; font-size: 0.95rem; }
+      pre {
+        background: var(--code-bg); color: var(--code-fg);
+        border: 1px solid var(--border); border-radius: 8px;
+        padding: 1rem 1.25rem; overflow-x: auto; font-size: 0.85rem; line-height: 1.5;
+      }
+
+      section { padding-top: 2.5rem; padding-bottom: 2.5rem; }
+      h2 { font-size: 1.6rem; margin: 0 0 0.5rem; }
+
+      .table-scroll { overflow-x: auto; }
+      table { border-collapse: collapse; width: 100%; margin-top: 1rem; font-size: 0.95rem; }
+      th, td { text-align: left; padding: 0.55rem 0.9rem; border-bottom: 1px solid var(--border); }
+      th { color: var(--fg-muted); font-weight: 600; }
+      .tier {
+        font-size: 0.75rem; font-weight: 600; padding: 0.1rem 0.5rem;
+        border-radius: 999px; border: 1px solid var(--border); white-space: nowrap;
+      }
+      .tier-free { color: var(--fg-muted); }
+      .tier-pro { color: var(--accent); border-color: var(--accent); }
+
+      .pricing-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+      .currency-toggle {
+        display: inline-flex; border: 1px solid var(--border); border-radius: 6px; overflow: hidden;
+      }
+      .currency-toggle button {
+        font: inherit; font-size: 0.85rem; font-weight: 600;
+        padding: 0.3rem 0.9rem; border: 0; background: transparent;
+        color: var(--fg-muted); cursor: pointer;
+      }
+      .currency-toggle button.active { background: var(--accent); color: var(--accent-contrast); }
+      .fx-note { color: var(--fg-muted); font-size: 0.85rem; margin-top: 0.5rem; }
+
+      .plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1.25rem; margin-top: 1.5rem; }
+      .plan {
+        border: 1px solid var(--border); border-radius: 10px;
+        padding: 1.5rem; background: var(--bg-soft);
+        display: flex; flex-direction: column;
+      }
+      .plan-featured { border-color: var(--accent); }
+      .plan h3 { margin: 0 0 0.25rem; }
+      .price { margin: 0 0 1rem; }
+      .amount { font-size: 1.9rem; font-weight: 700; }
+      .per { color: var(--fg-muted); font-size: 0.9rem; }
+      .plan ul { margin: 0 0 1.5rem; padding-left: 1.1rem; color: var(--fg-muted); flex: 1; }
+      .plan li { margin-bottom: 0.35rem; }
+      .plan .btn { text-align: center; }
+
+      footer { border-top: 1px solid var(--border); margin-top: 2rem; }
+      .footer-inner {
+        display: flex; align-items: center; justify-content: space-between;
+        flex-wrap: wrap; gap: 0.75rem;
+        padding-top: 1.25rem; padding-bottom: 1.25rem;
+        color: var(--fg-muted); font-size: 0.9rem;
+      }
+    </style>
+  </body>
+</html>

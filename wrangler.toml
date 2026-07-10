@@ -1,0 +1,4 @@
+# Cloudflare Pages config for `wrangler pages deploy dist`.
+name = "dataverse-ops-mcp-docs"
+compatibility_date = "2026-07-01"
+pages_build_output_dir = "dist"
