@@ -56,6 +56,16 @@ export default defineConfig({
             'data-cf-beacon': `{"token": "${CF_ANALYTICS_TOKEN}"}`,
           },
         },
+        // "Ask AI" support chat widget (public/ask-widget.js), injected the
+        // same way as the beacon above. Hides itself when the ask worker
+        // (workers/ask) is unreachable. Endpoint URL is a const in the file.
+        {
+          tag: 'script',
+          attrs: {
+            defer: true,
+            src: '/ask-widget.js',
+          },
+        },
       ],
     }),
   ],

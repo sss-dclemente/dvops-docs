@@ -1,0 +1,20 @@
+# Cloudflare Worker for the docs "Ask AI" support chat.
+#
+# Deploy:
+#   1. (repo root) npm run sync && npm run build:ask-index   # bundle a fresh index
+#   2. npx wrangler d1 create dvops-ask                      # once; paste the id below
+#   3. npx wrangler d1 migrations apply dvops-ask --remote
+#   4. npx wrangler secret put ANTHROPIC_API_KEY
+#   5. npx wrangler deploy
+name = "dvops-ask"
+main = "src/index.ts"
+compatibility_date = "2026-07-01"
+
+[ai]
+binding = "AI"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "dvops-ask"
+# Owner: replace with the id printed by `npx wrangler d1 create dvops-ask`.
+database_id = "REPLACE_ME"

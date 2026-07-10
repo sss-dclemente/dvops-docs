@@ -1,5 +1,10 @@
 # build output
 dist/
+# generated embeddings index for the ask worker (npm run build:ask-index);
+# tests/builds fall back to workers/ask/ask-index.sample.json when absent
+workers/ask/ask-index.json
+# wrangler local state
+workers/ask/.wrangler/
 # generated types
 .astro/
 # dependencies

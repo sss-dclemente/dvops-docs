@@ -1,0 +1,26 @@
+{
+  "name": "dvops-ask",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Cloudflare Worker answering docs questions from an embeddings index (Ask AI widget backend)",
+  "scripts": {
+    "ensure-index": "node scripts/ensure-index.mjs",
+    "pretest": "node scripts/ensure-index.mjs",
+    "test": "vitest run",
+    "pretypecheck": "node scripts/ensure-index.mjs",
+    "typecheck": "tsc --noEmit",
+    "predev": "node scripts/ensure-index.mjs",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.71.2"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260710.1",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.10",
+    "wrangler": "^4.110.0"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "model": "@cf/baai/bge-base-en-v1.5",
+  "dims": 8,
+  "chunks": [
+    {
+      "id": "/tools/get_plugin_traces/#0",
+      "page": "/tools/get_plugin_traces/",
+      "title": "get_plugin_traces — Inputs",
+      "text": "get_plugin_traces queries Dataverse plug-in trace logs and returns a trimmed summary of recent executions. By default only traces with exceptions from the last 24 hours are returned. Inputs: entity, messageName, onlyErrors, hoursBack (1-168, default 24), top (1-100, default 25).",
+      "vector": [0.31, -0.12, 0.44, 0.02, -0.27, 0.18, 0.09, -0.05]
+    },
+    {
+      "id": "/getting-started/claude-desktop/#0",
+      "page": "/getting-started/claude-desktop/",
+      "title": "Claude Desktop setup",
+      "text": "Add dataverse-ops to Claude Desktop by editing claude_desktop_config.json: run the server with npx -y @simplesmoothsafe/dataverse-ops-mcp and set DATAVERSE_URL, CLIENT_ID, CLIENT_SECRET and TENANT_ID environment variables for client-credentials auth.",
+      "vector": [-0.08, 0.36, -0.21, 0.4, 0.11, -0.3, 0.05, 0.22]
+    },
+    {
+      "id": "/security/#0",
+      "page": "/security/",
+      "title": "Security — Data handling",
+      "text": "The MCP server runs locally over stdio inside your MCP host. All Dataverse data stays on your machine and tenant; the only outbound calls are to Dataverse/Entra and, when a LICENSE_KEY is set, license validation which never carries org data.",
+      "vector": [0.14, 0.07, -0.33, -0.18, 0.42, 0.25, -0.1, 0.03]
+    }
+  ]
+}

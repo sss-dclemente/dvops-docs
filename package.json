@@ -8,7 +8,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "sync": "node scripts/sync-docs.mjs"
+    "sync": "node scripts/sync-docs.mjs",
+    "build:ask-index": "node scripts/build-ask-index.mjs"
   },
   "dependencies": {
     "@astrojs/starlight": "^0.41.3",
