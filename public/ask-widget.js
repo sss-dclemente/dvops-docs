@@ -12,7 +12,7 @@
   // Owner: REPLACE with the deployed dvops-ask worker URL
   // (`npx wrangler deploy` in workers/ask prints it, e.g.
   // https://dvops-ask.<account>.workers.dev) or the custom domain.
-  const ASK_BASE = 'https://ask.simplesmoothsafe.com';
+  const ASK_BASE = 'https://dvops-ask.duarte-clemente.workers.dev';
 
   if (window.__dvopsAskWidget) return;
   window.__dvopsAskWidget = true;
