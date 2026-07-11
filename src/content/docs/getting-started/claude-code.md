@@ -26,7 +26,7 @@ claude mcp add dataverse-ops \
 ```
 
 Using `DefaultAzureCredential` instead? Drop the three credential variables and
-keep only `DATAVERSE_URL`. Add `-e LICENSE_KEY=<your-key>` to unlock pro tools.
+keep only `DATAVERSE_URL`. All 20 tools are free — there's no license key.
 
 Use `--scope user` if you want the server available in every project, and
 `claude mcp list` to confirm it registered.

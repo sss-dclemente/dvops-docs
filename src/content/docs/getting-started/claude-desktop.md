@@ -45,7 +45,6 @@ Add the server under `mcpServers`:
 Restart Claude Desktop. The server runs locally over stdio — nothing is hosted
 and no ports are opened.
 
-To unlock the pro tools, add `"LICENSE_KEY": "<your-key>"` to the `env` block.
 
 ## First call
 

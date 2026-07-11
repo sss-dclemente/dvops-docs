@@ -31,32 +31,32 @@ const toolGroups = [
       ['get_plugin_traces', 'Free', 'Recent plug-in trace logs, defaulting to executions that threw exceptions.', '/tools/get_plugin_traces/'],
       ['get_failed_async_jobs', 'Free', 'Failed and canceled async jobs over a window, grouped by name and error code.', '/tools/get_failed_async_jobs/'],
       ['find_stuck_jobs', 'Free', 'Async jobs stuck in waiting or in-progress beyond a threshold (postponed jobs excluded).', '/tools/find_stuck_jobs/'],
-      ['check_step_config', 'Pro', 'Lints plug-in step registrations: missing filtering attributes, risky sync steps, rank collisions.', '/tools/check_step_config/'],
-      ['explain_trace', 'Pro', 'Root-cause analysis of a single failing plug-in execution, with correlated sibling traces.', '/tools/explain_trace/'],
-      ['analyze_plugin_performance', 'Pro', 'Per-plugin performance table (p50/p95, sync vs async, depth) with anti-pattern flags.', '/tools/analyze_plugin_performance/'],
+      ['check_step_config', 'Free', 'Lints plug-in step registrations: missing filtering attributes, risky sync steps, rank collisions.', '/tools/check_step_config/'],
+      ['explain_trace', 'Free', 'Root-cause analysis of a single failing plug-in execution, with correlated sibling traces.', '/tools/explain_trace/'],
+      ['analyze_plugin_performance', 'Free', 'Per-plugin performance table (p50/p95, sync vs async, depth) with anti-pattern flags.', '/tools/analyze_plugin_performance/'],
     ],
   },
   {
     name: 'Power Automate flows',
     tools: [
       ['get_flow_runs', 'Free', 'Filtered cloud-flow run history — by flow, status and time window.', '/tools/get_flow_runs/'],
-      ['explain_flow_failure', 'Pro', 'Root cause of a failed flow run: failed-action guess and known-pattern detection.', '/tools/explain_flow_failure/'],
-      ['analyze_flow_runs', 'Pro', 'Per-flow success rates, duration percentiles and error clusters, with reliability flags.', '/tools/analyze_flow_runs/'],
-      ['check_flow_connections', 'Enterprise', 'Connection-reference health: unbound references, disabled owners, owner mismatches.', '/tools/check_flow_connections/'],
-      ['flow_governance_report', 'Enterprise', 'Flow inventory by state and owner: disabled owners, suspended flows, stale drafts.', '/tools/flow_governance_report/'],
-      ['detect_automation_loops', 'Enterprise', 'Suspected trigger→write cycles between cloud flows (self-loops and short cycles).', '/tools/detect_automation_loops/'],
-      ['document_flow', 'Pro', 'Documents a cloud flow from its definition: triggers, action tree and connectors, plus markdown.', '/tools/document_flow/'],
+      ['explain_flow_failure', 'Free', 'Root cause of a failed flow run: failed-action guess and known-pattern detection.', '/tools/explain_flow_failure/'],
+      ['analyze_flow_runs', 'Free', 'Per-flow success rates, duration percentiles and error clusters, with reliability flags.', '/tools/analyze_flow_runs/'],
+      ['check_flow_connections', 'Free', 'Connection-reference health: unbound references, disabled owners, owner mismatches.', '/tools/check_flow_connections/'],
+      ['flow_governance_report', 'Free', 'Flow inventory by state and owner: disabled owners, suspended flows, stale drafts.', '/tools/flow_governance_report/'],
+      ['detect_automation_loops', 'Free', 'Suspected trigger→write cycles between cloud flows (self-loops and short cycles).', '/tools/detect_automation_loops/'],
+      ['document_flow', 'Free', 'Documents a cloud flow from its definition: triggers, action tree and connectors, plus markdown.', '/tools/document_flow/'],
     ],
   },
   {
     name: 'Solutions, tables & governance',
     tools: [
       ['get_org_automation_settings', 'Free', 'Org switches the other tools depend on: trace logging level and auditing configuration.', '/tools/get_org_automation_settings/'],
-      ['explain_import_failure', 'Pro', 'Explains a failed solution import with per-component causes and missing dependencies.', '/tools/explain_import_failure/'],
-      ['what_runs_on_table', 'Pro', 'Everything registered on one table: plug-in steps, flows, classic workflows and business rules.', '/tools/what_runs_on_table/'],
-      ['document_table', 'Pro', 'Table documentation from metadata: columns, relationships, keys and attached automation.', '/tools/document_table/'],
-      ['get_solution_layers', 'Pro', 'Solution layering for one component — who overwrote it and whether an Active layer blocks updates.', '/tools/get_solution_layers/'],
-      ['modernization_report', 'Enterprise', 'Legacy automation inventory: dialogs, classic workflows and business rules, with migration priorities.', '/tools/modernization_report/'],
+      ['explain_import_failure', 'Free', 'Explains a failed solution import with per-component causes and missing dependencies.', '/tools/explain_import_failure/'],
+      ['what_runs_on_table', 'Free', 'Everything registered on one table: plug-in steps, flows, classic workflows and business rules.', '/tools/what_runs_on_table/'],
+      ['document_table', 'Free', 'Table documentation from metadata: columns, relationships, keys and attached automation.', '/tools/document_table/'],
+      ['get_solution_layers', 'Free', 'Solution layering for one component — who overwrote it and whether an Active layer blocks updates.', '/tools/get_solution_layers/'],
+      ['modernization_report', 'Free', 'Legacy automation inventory: dialogs, classic workflows and business rules, with migration priorities.', '/tools/modernization_report/'],
     ],
   },
 ];
@@ -86,7 +86,7 @@ const toolGroups = [
         <a class="brand" href="/">Dataverse&nbsp;Ops&nbsp;MCP</a>
         <nav>
           <a href="#tools">Tools</a>
-          <a href="#pricing">Pricing</a>
+          <a href="https://github.com/sss-dclemente/dataverse-mcp-pro">GitHub</a>
           <a href="/getting-started/claude-desktop/">Docs</a>
         </nav>
       </div>
@@ -104,7 +104,7 @@ const toolGroups = [
         </p>
         <div class="cta-row">
           <a class="btn btn-primary" href="/getting-started/claude-desktop/">Get started</a>
-          <a class="btn btn-ghost" href="#pricing">Pricing</a>
+          <a class="btn btn-ghost" href="https://github.com/sss-dclemente/dataverse-mcp-pro">View on GitHub</a>
         </div>
 
         <div class="quickstart">
@@ -117,20 +117,19 @@ const toolGroups = [
 
       <section id="tools" class="wrap">
         <h2>Tools</h2>
-        <p>Six free tools work without a license key. Ten <a href="#pricing">Pro</a> tools add diagnosis and documentation; four <a href="#pricing">Enterprise</a> tools add org-wide governance. An Enterprise license includes every Pro tool.</p>
+        <p>All 20 tools are free and MIT-licensed — no key, no signup. They span plug-in diagnostics, Power Automate flow diagnostics, and Dataverse governance &amp; documentation.</p>
         <div class="table-scroll">
           <table>
             <thead>
-              <tr><th>Tool</th><th>Tier</th><th>What it does</th></tr>
+              <tr><th>Tool</th><th>What it does</th></tr>
             </thead>
             <tbody>
               {toolGroups.map((group) => (
                 <Fragment>
-                  <tr class="cat"><th colspan="3">{group.name}</th></tr>
-                  {group.tools.map(([name, tier, desc, href]) => (
+                  <tr class="cat"><th colspan="2">{group.name}</th></tr>
+                  {group.tools.map(([name, , desc, href]) => (
                     <tr>
                       <td><code><a href={href}>{name}</a></code></td>
-                      <td><span class={"tier " + (tier === 'Enterprise' ? 'tier-ent' : tier === 'Pro' ? 'tier-pro' : 'tier-free')}>{tier}</span></td>
                       <td>{desc}</td>
                     </tr>
                   ))}
@@ -141,59 +140,22 @@ const toolGroups = [
         </div>
         <p class="tools-note">
           Plus <code>ping</code>, a zero-dependency health check.
-          <strong>20 tools total — 6 free, 10 Pro, 4 Enterprise.</strong>
+          <strong>20 tools, all free and open source.</strong>
           Every tool has a <a href="/getting-started/claude-desktop/">reference page</a> with inputs, an example call and example output.
         </p>
       </section>
 
-      <section id="pricing" class="wrap">
-        <div class="pricing-head">
-          <h2>Pricing</h2>
-          <div class="currency-toggle" role="group" aria-label="Currency">
-            <button type="button" data-currency="eur" class="active" aria-pressed="true">EUR</button>
-            <button type="button" data-currency="usd" aria-pressed="false">USD</button>
-          </div>
-        </div>
-        <p class="fx-note" hidden>USD prices are approximate, converted at a static reference rate. Checkout is billed in EUR.</p>
-        <div class="plans">
-          <div class="plan">
-            <h3>Free</h3>
-            <p class="price"><span class="amount" data-eur="€0" data-usd="$0">€0</span></p>
-            <ul>
-              <li>All 6 free tools — traces, failed &amp; stuck jobs, flow runs, org settings</li>
-              <li>Runs entirely on your machine</li>
-              <li>Community support</li>
-            </ul>
-            <a class="btn btn-ghost" href="/getting-started/claude-desktop/">Install free</a>
-          </div>
-          <div class="plan plan-featured">
-            <h3>Pro</h3>
-            <p class="price">
-              <span class="amount" data-eur="€99" data-usd="$109">€99</span>
-              <span class="per">/ org / month</span>
-            </p>
-            <ul>
-              <li>Everything in Free</li>
-              <li>All 10 Pro tools — root-cause analysis, flow &amp; plug-in diagnostics, documentation</li>
-              <li>Email support</li>
-            </ul>
-            <!-- Owner: replace with the real Paddle checkout link for the Pro plan. -->
-            <a class="btn btn-primary" href="https://buy.paddle.com/PLACEHOLDER_PRO">Buy Pro</a>
-          </div>
-          <div class="plan">
-            <h3>Enterprise</h3>
-            <p class="price">
-              <span class="amount" data-eur="€249" data-usd="$269">€249</span>
-              <span class="per">/ org / month</span>
-            </p>
-            <ul>
-              <li>Everything in Pro, plus 4 org-wide governance tools — fleet flow inventory, connection audits, loop detection, modernization reporting</li>
-              <li>Priority support</li>
-              <li>Invoicing &amp; procurement-friendly billing</li>
-            </ul>
-            <!-- Owner: replace with the real Paddle checkout link for the Enterprise plan. -->
-            <a class="btn btn-ghost" href="https://buy.paddle.com/PLACEHOLDER_ENTERPRISE">Buy Enterprise</a>
-          </div>
+      <section id="open-source" class="wrap">
+        <h2>Free &amp; open source</h2>
+        <p class="lede">
+          Every one of the 20 tools is free, and the whole server is
+          <strong>MIT-licensed</strong>. Install it, read the source, fork it, or
+          open a pull request — new diagnostics and fixes for real-world Dataverse
+          quirks are welcome.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="/getting-started/claude-desktop/">Get started</a>
+          <a class="btn btn-ghost" href="https://github.com/sss-dclemente/dataverse-mcp-pro">View on GitHub</a>
         </div>
       </section>
     </main>
@@ -210,25 +172,6 @@ const toolGroups = [
         </nav>
       </div>
     </footer>
-
-    <script>
-      const buttons = document.querySelectorAll<HTMLButtonElement>('.currency-toggle button');
-      const note = document.querySelector<HTMLElement>('.fx-note');
-      buttons.forEach((btn) =>
-        btn.addEventListener('click', () => {
-          const currency = btn.dataset.currency === 'usd' ? 'usd' : 'eur';
-          buttons.forEach((b) => {
-            const active = b === btn;
-            b.classList.toggle('active', active);
-            b.setAttribute('aria-pressed', String(active));
-          });
-          document.querySelectorAll<HTMLElement>('.amount').forEach((el) => {
-            el.textContent = currency === 'usd' ? (el.dataset.usd ?? '') : (el.dataset.eur ?? '');
-          });
-          if (note) note.hidden = currency !== 'usd';
-        }),
-      );
-    </script>
 
     <style>
       :root {
@@ -310,46 +253,12 @@ const toolGroups = [
       table { border-collapse: collapse; width: 100%; margin-top: 1rem; font-size: 0.95rem; }
       th, td { text-align: left; padding: 0.55rem 0.9rem; border-bottom: 1px solid var(--border); }
       th { color: var(--fg-muted); font-weight: 600; }
-      .tier {
-        font-size: 0.75rem; font-weight: 600; padding: 0.1rem 0.5rem;
-        border-radius: 999px; border: 1px solid var(--border); white-space: nowrap;
-      }
-      .tier-free { color: var(--fg-muted); }
-      .tier-pro { color: var(--accent); border-color: var(--accent); }
-      .tier-ent { color: var(--accent-contrast); background: var(--accent); border-color: var(--accent); }
       tr.cat th {
         color: var(--fg); font-weight: 700; font-size: 0.9rem;
         letter-spacing: 0.01em; padding-top: 1.3rem;
       }
       .tools-note { color: var(--fg-muted); font-size: 0.9rem; margin-top: 1rem; }
       .tools-note strong { color: var(--fg); }
-
-      .pricing-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
-      .currency-toggle {
-        display: inline-flex; border: 1px solid var(--border); border-radius: 6px; overflow: hidden;
-      }
-      .currency-toggle button {
-        font: inherit; font-size: 0.85rem; font-weight: 600;
-        padding: 0.3rem 0.9rem; border: 0; background: transparent;
-        color: var(--fg-muted); cursor: pointer;
-      }
-      .currency-toggle button.active { background: var(--accent); color: var(--accent-contrast); }
-      .fx-note { color: var(--fg-muted); font-size: 0.85rem; margin-top: 0.5rem; }
-
-      .plans { display: grid; grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)); gap: 1.25rem; margin-top: 1.5rem; }
-      .plan {
-        border: 1px solid var(--border); border-radius: 10px;
-        padding: 1.5rem; background: var(--bg-soft);
-        display: flex; flex-direction: column;
-      }
-      .plan-featured { border-color: var(--accent); }
-      .plan h3 { margin: 0 0 0.25rem; }
-      .price { margin: 0 0 1rem; }
-      .amount { font-size: 1.9rem; font-weight: 700; }
-      .per { color: var(--fg-muted); font-size: 0.9rem; }
-      .plan ul { margin: 0 0 1.5rem; padding-left: 1.1rem; color: var(--fg-muted); flex: 1; }
-      .plan li { margin-bottom: 0.35rem; }
-      .plan .btn { text-align: center; }
 
       footer { border-top: 1px solid var(--border); margin-top: 2rem; }
       .footer-inner {

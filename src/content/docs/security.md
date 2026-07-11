@@ -22,12 +22,9 @@ your MCP host. **It never transits any third-party server of ours.** What your
 AI assistant then does with tool results is governed by the assistant you chose
 to run.
 
-The single exception is **license validation**, and it is opt-in: if you set
-`LICENSE_KEY`, the server validates it against our licensing worker. That
-request carries **only the license key and a hashed org identifier** — never
-org data, never tokens, never query results. Without `LICENSE_KEY` set, the
-server makes no calls to us at all (pro tools simply reply with an upgrade
-notice; free tools are never blocked).
+There are **no exceptions**: the server is free and open source (MIT), makes no
+licensing, analytics or telemetry calls of any kind, and never contacts any
+server of ours.
 
 ## No telemetry by default
 
