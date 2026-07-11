@@ -42,9 +42,9 @@ const toolGroups = [
       ['get_flow_runs', 'Free', 'Filtered cloud-flow run history — by flow, status and time window.', '/tools/get_flow_runs/'],
       ['explain_flow_failure', 'Pro', 'Root cause of a failed flow run: failed-action guess and known-pattern detection.', '/tools/explain_flow_failure/'],
       ['analyze_flow_runs', 'Pro', 'Per-flow success rates, duration percentiles and error clusters, with reliability flags.', '/tools/analyze_flow_runs/'],
-      ['check_flow_connections', 'Pro', 'Connection-reference health: unbound references, disabled owners, owner mismatches.', '/tools/check_flow_connections/'],
-      ['flow_governance_report', 'Pro', 'Flow inventory by state and owner: disabled owners, suspended flows, stale drafts.', '/tools/flow_governance_report/'],
-      ['detect_automation_loops', 'Pro', 'Suspected trigger→write cycles between cloud flows (self-loops and short cycles).', '/tools/detect_automation_loops/'],
+      ['check_flow_connections', 'Enterprise', 'Connection-reference health: unbound references, disabled owners, owner mismatches.', '/tools/check_flow_connections/'],
+      ['flow_governance_report', 'Enterprise', 'Flow inventory by state and owner: disabled owners, suspended flows, stale drafts.', '/tools/flow_governance_report/'],
+      ['detect_automation_loops', 'Enterprise', 'Suspected trigger→write cycles between cloud flows (self-loops and short cycles).', '/tools/detect_automation_loops/'],
       ['document_flow', 'Pro', 'Documents a cloud flow from its definition: triggers, action tree and connectors, plus markdown.', '/tools/document_flow/'],
     ],
   },
@@ -56,7 +56,7 @@ const toolGroups = [
       ['what_runs_on_table', 'Pro', 'Everything registered on one table: plug-in steps, flows, classic workflows and business rules.', '/tools/what_runs_on_table/'],
       ['document_table', 'Pro', 'Table documentation from metadata: columns, relationships, keys and attached automation.', '/tools/document_table/'],
       ['get_solution_layers', 'Pro', 'Solution layering for one component — who overwrote it and whether an Active layer blocks updates.', '/tools/get_solution_layers/'],
-      ['modernization_report', 'Pro', 'Legacy automation inventory: dialogs, classic workflows and business rules, with migration priorities.', '/tools/modernization_report/'],
+      ['modernization_report', 'Enterprise', 'Legacy automation inventory: dialogs, classic workflows and business rules, with migration priorities.', '/tools/modernization_report/'],
     ],
   },
 ];
@@ -117,7 +117,7 @@ const toolGroups = [
 
       <section id="tools" class="wrap">
         <h2>Tools</h2>
-        <p>Six free tools work without a license key. The 14 Pro tools unlock with a <a href="#pricing">Pro or Enterprise license</a>.</p>
+        <p>Six free tools work without a license key. Ten <a href="#pricing">Pro</a> tools add diagnosis and documentation; four <a href="#pricing">Enterprise</a> tools add org-wide governance. An Enterprise license includes every Pro tool.</p>
         <div class="table-scroll">
           <table>
             <thead>
@@ -130,7 +130,7 @@ const toolGroups = [
                   {group.tools.map(([name, tier, desc, href]) => (
                     <tr>
                       <td><code><a href={href}>{name}</a></code></td>
-                      <td><span class={"tier " + (tier === 'Pro' ? 'tier-pro' : 'tier-free')}>{tier}</span></td>
+                      <td><span class={"tier " + (tier === 'Enterprise' ? 'tier-ent' : tier === 'Pro' ? 'tier-pro' : 'tier-free')}>{tier}</span></td>
                       <td>{desc}</td>
                     </tr>
                   ))}
@@ -141,7 +141,7 @@ const toolGroups = [
         </div>
         <p class="tools-note">
           Plus <code>ping</code>, a zero-dependency health check.
-          <strong>20 tools total — 6 free, 14 Pro.</strong>
+          <strong>20 tools total — 6 free, 10 Pro, 4 Enterprise.</strong>
           Every tool has a <a href="/getting-started/claude-desktop/">reference page</a> with inputs, an example call and example output.
         </p>
       </section>
@@ -174,7 +174,7 @@ const toolGroups = [
             </p>
             <ul>
               <li>Everything in Free</li>
-              <li>All 14 Pro tools — root-cause analysis, flow diagnostics, governance &amp; documentation</li>
+              <li>All 10 Pro tools — root-cause analysis, flow &amp; plug-in diagnostics, documentation</li>
               <li>Email support</li>
             </ul>
             <!-- Owner: replace with the real Paddle checkout link for the Pro plan. -->
@@ -187,7 +187,7 @@ const toolGroups = [
               <span class="per">/ org / month</span>
             </p>
             <ul>
-              <li>Everything in Pro</li>
+              <li>Everything in Pro, plus 4 org-wide governance tools — fleet flow inventory, connection audits, loop detection, modernization reporting</li>
               <li>Priority support</li>
               <li>Invoicing &amp; procurement-friendly billing</li>
             </ul>
@@ -316,6 +316,7 @@ const toolGroups = [
       }
       .tier-free { color: var(--fg-muted); }
       .tier-pro { color: var(--accent); border-color: var(--accent); }
+      .tier-ent { color: var(--accent-contrast); background: var(--accent); border-color: var(--accent); }
       tr.cat th {
         color: var(--fg); font-weight: 700; font-size: 0.9rem;
         letter-spacing: 0.01em; padding-top: 1.3rem;
