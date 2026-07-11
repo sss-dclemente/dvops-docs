@@ -21,16 +21,44 @@ const quickstart = `{
   }
 }`;
 
-const freeTools = [
-  ['ping', 'Health check for the server connection — returns { ok: true } without touching Dataverse.', null],
-  ['get_plugin_traces', 'Recent plug-in trace logs, defaulting to executions that threw exceptions.', '/tools/get_plugin_traces/'],
-  ['get_failed_async_jobs', 'Failed and canceled async jobs over a time window, grouped by name and error code.', '/tools/get_failed_async_jobs/'],
-];
-const proTools = [
-  ['check_step_config', 'Lints plug-in step registrations: missing filtering attributes, risky sync steps, rank collisions.', '/tools/check_step_config/'],
-  ['explain_trace', 'Root-cause analysis of a single failing plug-in execution, with correlated sibling traces.', '/tools/explain_trace/'],
-  ['explain_import_failure', 'Explains a failed solution import with per-component causes and missing dependencies.', '/tools/explain_import_failure/'],
-  ['analyze_plugin_performance', 'Per-plugin/message performance table (p50/p95, sync vs async, depth) with anti-pattern flags.', '/tools/analyze_plugin_performance/'],
+// Grouped for the landing page so the three pillars — plug-ins, flows,
+// governance — read at a glance. `ping` (a trivial health check with no doc
+// page) is mentioned in the note under the table rather than listed here.
+const toolGroups = [
+  {
+    name: 'Plug-in & job diagnostics',
+    tools: [
+      ['get_plugin_traces', 'Free', 'Recent plug-in trace logs, defaulting to executions that threw exceptions.', '/tools/get_plugin_traces/'],
+      ['get_failed_async_jobs', 'Free', 'Failed and canceled async jobs over a window, grouped by name and error code.', '/tools/get_failed_async_jobs/'],
+      ['find_stuck_jobs', 'Free', 'Async jobs stuck in waiting or in-progress beyond a threshold (postponed jobs excluded).', '/tools/find_stuck_jobs/'],
+      ['check_step_config', 'Pro', 'Lints plug-in step registrations: missing filtering attributes, risky sync steps, rank collisions.', '/tools/check_step_config/'],
+      ['explain_trace', 'Pro', 'Root-cause analysis of a single failing plug-in execution, with correlated sibling traces.', '/tools/explain_trace/'],
+      ['analyze_plugin_performance', 'Pro', 'Per-plugin performance table (p50/p95, sync vs async, depth) with anti-pattern flags.', '/tools/analyze_plugin_performance/'],
+    ],
+  },
+  {
+    name: 'Power Automate flows',
+    tools: [
+      ['get_flow_runs', 'Free', 'Filtered cloud-flow run history — by flow, status and time window.', '/tools/get_flow_runs/'],
+      ['explain_flow_failure', 'Pro', 'Root cause of a failed flow run: failed-action guess and known-pattern detection.', '/tools/explain_flow_failure/'],
+      ['analyze_flow_runs', 'Pro', 'Per-flow success rates, duration percentiles and error clusters, with reliability flags.', '/tools/analyze_flow_runs/'],
+      ['check_flow_connections', 'Pro', 'Connection-reference health: unbound references, disabled owners, owner mismatches.', '/tools/check_flow_connections/'],
+      ['flow_governance_report', 'Pro', 'Flow inventory by state and owner: disabled owners, suspended flows, stale drafts.', '/tools/flow_governance_report/'],
+      ['detect_automation_loops', 'Pro', 'Suspected trigger→write cycles between cloud flows (self-loops and short cycles).', '/tools/detect_automation_loops/'],
+      ['document_flow', 'Pro', 'Documents a cloud flow from its definition: triggers, action tree and connectors, plus markdown.', '/tools/document_flow/'],
+    ],
+  },
+  {
+    name: 'Solutions, tables & governance',
+    tools: [
+      ['get_org_automation_settings', 'Free', 'Org switches the other tools depend on: trace logging level and auditing configuration.', '/tools/get_org_automation_settings/'],
+      ['explain_import_failure', 'Pro', 'Explains a failed solution import with per-component causes and missing dependencies.', '/tools/explain_import_failure/'],
+      ['what_runs_on_table', 'Pro', 'Everything registered on one table: plug-in steps, flows, classic workflows and business rules.', '/tools/what_runs_on_table/'],
+      ['document_table', 'Pro', 'Table documentation from metadata: columns, relationships, keys and attached automation.', '/tools/document_table/'],
+      ['get_solution_layers', 'Pro', 'Solution layering for one component — who overwrote it and whether an Active layer blocks updates.', '/tools/get_solution_layers/'],
+      ['modernization_report', 'Pro', 'Legacy automation inventory: dialogs, classic workflows and business rules, with migration priorities.', '/tools/modernization_report/'],
+    ],
+  },
 ];
 ---
 
@@ -38,10 +66,10 @@ const proTools = [
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Dataverse Ops MCP — Dataverse diagnostics inside your AI assistant</title>
+    <title>Dataverse Ops MCP — Dataverse &amp; Power Automate diagnostics inside your AI assistant</title>
     <meta
       name="description"
-      content="Plug-in trace analysis, failed job triage, import failure explanations and performance flags for Microsoft Dataverse — over MCP/stdio. Data never leaves your tenant."
+      content="Plug-in trace root-cause analysis, async job triage, Power Automate flow diagnostics, and solution and automation governance for Microsoft Dataverse — over MCP/stdio. Data never leaves your tenant."
     />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <!-- Cloudflare Web Analytics (privacy-friendly, no cookies).
@@ -68,11 +96,11 @@ const proTools = [
       <section class="hero wrap">
         <h1>Dataverse diagnostics inside your AI assistant</h1>
         <p class="lede">
-          Plug-in trace analysis, failed async job triage, solution import failure
-          explanations and performance flags for Microsoft Dataverse — exposed as
-          MCP tools your assistant can call directly. Runs locally over
-          <strong>MCP/stdio</strong>: no hosted service, no open ports, and your
-          Dataverse data <strong>never leaves your tenant</strong>.
+          Plug-in trace root-cause analysis, async job triage, Power Automate flow
+          diagnostics, and solution &amp; automation governance for Microsoft
+          Dataverse — <strong>20 tools</strong> your assistant can call directly.
+          Runs locally over <strong>MCP/stdio</strong>: no hosted service, no open
+          ports, and your Dataverse data <strong>never leaves your tenant</strong>.
         </p>
         <div class="cta-row">
           <a class="btn btn-primary" href="/getting-started/claude-desktop/">Get started</a>
@@ -89,30 +117,33 @@ const proTools = [
 
       <section id="tools" class="wrap">
         <h2>Tools</h2>
-        <p>Free tools work without a license key. Pro tools unlock with a <a href="#pricing">Pro or Enterprise license</a>.</p>
+        <p>Six free tools work without a license key. The 14 Pro tools unlock with a <a href="#pricing">Pro or Enterprise license</a>.</p>
         <div class="table-scroll">
           <table>
             <thead>
               <tr><th>Tool</th><th>Tier</th><th>What it does</th></tr>
             </thead>
             <tbody>
-              {freeTools.map(([name, desc, href]) => (
-                <tr>
-                  <td><code>{href ? <a href={href}>{name}</a> : name}</code></td>
-                  <td><span class="tier tier-free">Free</span></td>
-                  <td>{desc}</td>
-                </tr>
-              ))}
-              {proTools.map(([name, desc, href]) => (
-                <tr>
-                  <td><code><a href={href}>{name}</a></code></td>
-                  <td><span class="tier tier-pro">Pro</span></td>
-                  <td>{desc}</td>
-                </tr>
+              {toolGroups.map((group) => (
+                <Fragment>
+                  <tr class="cat"><th colspan="3">{group.name}</th></tr>
+                  {group.tools.map(([name, tier, desc, href]) => (
+                    <tr>
+                      <td><code><a href={href}>{name}</a></code></td>
+                      <td><span class={"tier " + (tier === 'Pro' ? 'tier-pro' : 'tier-free')}>{tier}</span></td>
+                      <td>{desc}</td>
+                    </tr>
+                  ))}
+                </Fragment>
               ))}
             </tbody>
           </table>
         </div>
+        <p class="tools-note">
+          Plus <code>ping</code>, a zero-dependency health check.
+          <strong>20 tools total — 6 free, 14 Pro.</strong>
+          Every tool has a <a href="/getting-started/claude-desktop/">reference page</a> with inputs, an example call and example output.
+        </p>
       </section>
 
       <section id="pricing" class="wrap">
@@ -129,7 +160,7 @@ const proTools = [
             <h3>Free</h3>
             <p class="price"><span class="amount" data-eur="€0" data-usd="$0">€0</span></p>
             <ul>
-              <li>All free tools (<code>ping</code>, traces, failed jobs)</li>
+              <li>All 6 free tools — traces, failed &amp; stuck jobs, flow runs, org settings</li>
               <li>Runs entirely on your machine</li>
               <li>Community support</li>
             </ul>
@@ -143,7 +174,7 @@ const proTools = [
             </p>
             <ul>
               <li>Everything in Free</li>
-              <li>All pro diagnostic tools</li>
+              <li>All 14 Pro tools — root-cause analysis, flow diagnostics, governance &amp; documentation</li>
               <li>Email support</li>
             </ul>
             <!-- Owner: replace with the real Paddle checkout link for the Pro plan. -->
@@ -285,6 +316,12 @@ const proTools = [
       }
       .tier-free { color: var(--fg-muted); }
       .tier-pro { color: var(--accent); border-color: var(--accent); }
+      tr.cat th {
+        color: var(--fg); font-weight: 700; font-size: 0.9rem;
+        letter-spacing: 0.01em; padding-top: 1.3rem;
+      }
+      .tools-note { color: var(--fg-muted); font-size: 0.9rem; margin-top: 1rem; }
+      .tools-note strong { color: var(--fg); }
 
       .pricing-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
       .currency-toggle {
